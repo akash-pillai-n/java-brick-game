@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Brick Breaker — a browser-based arcade game with a leaderboard">
+  <title>Brick Breaker</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ===================================================================
+       Menu Screen
+       =================================================================== -->
+  <div id="screen-menu" class="screen active">
+    <div class="menu-content">
+      <h1 class="game-title">Brick Breaker</h1>
+      <p class="subtitle">Clear all bricks to advance through five levels</p>
+
+      <div class="controls-card">
+        <h3>Controls</h3>
+        <div class="controls-list">
+          <div class="row">
+            <div class="keys">
+              <kbd>Left</kbd>
+              <kbd>Right</kbd>
+            </div>
+            <span>Move paddle (keyboard)</span>
+          </div>
+          <div class="row">
+            <div class="keys"><kbd>Mouse</kbd></div>
+            <span>Move paddle (pointer)</span>
+          </div>
+          <div class="row">
+            <div class="keys"><kbd>P</kbd></div>
+            <span>Pause / Resume</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-buttons">
+        <button id="btn-play" class="btn btn-primary">Play Game</button>
+        <button id="btn-leaderboard-menu" class="btn btn-secondary">Leaderboard</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       Game Screen
+       =================================================================== -->
+  <div id="screen-game" class="screen">
+
+    <!-- HUD -->
+    <div id="hud">
+      <div class="hud-item">
+        <span class="hud-label">Score</span>
+        <span id="hud-score" class="hud-value">0</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">Level</span>
+        <span id="hud-level" class="hud-value">1</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">Lives</span>
+        <span id="hud-lives" class="hud-value">3</span>
+      </div>
+      <div class="hud-item">
+        <span class="hud-label">Best</span>
+        <span id="hud-best" class="hud-value">0</span>
+      </div>
+    </div>
+
+    <!-- Canvas + overlay -->
+    <div id="canvas-container">
+      <canvas id="game-canvas" width="700" height="520"
+              tabindex="0" aria-label="Game canvas"></canvas>
+
+      <!-- Pause / level-complete / game-over / win overlay -->
+      <div id="game-overlay" class="hidden" role="dialog" aria-live="assertive">
+        <h2 id="overlay-title"></h2>
+        <p  id="overlay-message"></p>
+        <div id="overlay-actions"></div>
+      </div>
+    </div>
+
+    <!-- Toolbar below canvas -->
+    <div id="game-toolbar">
+      <button id="btn-leaderboard-game" class="btn btn-ghost">Leaderboard</button>
+    </div>
+
+  </div>
+
+  <!-- ===================================================================
+       Leaderboard Screen
+       =================================================================== -->
+  <div id="screen-leaderboard" class="screen">
+    <div class="leaderboard-content">
+      <h2>Leaderboard</h2>
+
+      <div id="leaderboard-card">
+        <div id="leaderboard-loading">Loading...</div>
+
+        <div id="leaderboard-empty" class="hidden">
+          No scores recorded yet. Play a game and be the first!
+        </div>
+
+        <table id="leaderboard-table" class="hidden" aria-label="Top scores">
+          <thead>
+            <tr>
+              <th class="col-rank">#</th>
+              <th class="col-name">Player</th>
+              <th class="col-score">Score</th>
+              <th class="col-level">Level</th>
+              <th class="col-date">Date</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-body"></tbody>
+        </table>
+      </div>
+
+      <button id="btn-back-leaderboard" class="btn btn-secondary">Back to Menu</button>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       Score Submission Modal
+       =================================================================== -->
+  <div id="modal-submit" class="modal hidden"
+       role="dialog" aria-modal="true" aria-labelledby="modal-heading">
+    <div class="modal-backdrop"></div>
+    <div class="modal-box">
+      <h2 id="modal-heading">Submit Your Score</h2>
+
+      <p class="modal-score-line">
+        Final Score: <strong id="modal-final-score">0</strong>
+      </p>
+
+      <div class="form-group">
+        <label for="player-name">Your Name</label>
+        <input
+          type="text"
+          id="player-name"
+          placeholder="Enter your name"
+          maxlength="20"
+          autocomplete="off"
+          spellcheck="false"
+        >
+        <span id="submit-error" class="error-msg"></span>
+      </div>
+
+      <div class="modal-actions">
+        <button id="btn-submit-score" class="btn btn-primary">
+          Submit
+          <span id="submit-spinner" class="spinner hidden"></span>
+        </button>
+        <button id="btn-skip-score" class="btn btn-ghost">Skip</button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- #app -->
+
+<script src="js/api.js"></script>
+<script src="js/game.js"></script>
+<script src="js/app.js"></script>
+
+</body>
+</html>
